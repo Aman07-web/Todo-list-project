@@ -3,56 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard | My Tasks</title>
+    <title>My Dashboard | Todo App</title>
     <link rel="stylesheet" href="/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <%- include('navbar') %>
     <div class="container">
-        <h1>User Dashboard</h1>
+        <h1>My Dashboard</h1>
 
-        <form action="/user-dashboard" method="GET" class="search-form">
-            <input type="text" name="username" placeholder="Search by username..." required value="<%= username || '' %>">
-            <button type="submit">Search Tasks</button>
-        </form>
-
-        <% if (username) { %>
-            <div class="dashboard-header">
-                <h2 style="color: var(--primary);">Showing tasks for: <%= username %></h2>
-                <span class="todo-user" style="margin: 0;"><%= todos.length %> task(s) found</span>
+        <div class="todo-grid">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2 style="font-size: 1.25rem;">Tasks for <span style="color: var(--primary);"><%= username %></span></h2>
+                <a href="/add" class="btn btn-primary" style="font-size: 0.8rem;">+ New Task</a>
             </div>
-            
-            <div class="todo-grid">
-                <% if (todos.length > 0) { %>
-                    <% todos.forEach(todo => { %>
-                        <div class="todo-card">
+
+            <% if (todos.length > 0) { %>
+                <% todos.forEach(todo => { %>
+                    <div class="todo-card">
+                        <div class="todo-content">
                             <h3 class="todo-title"><%= todo.title %></h3>
                             <p class="todo-desc"><%= todo.description %></p>
-                            <div class="todo-footer">
-                                <span style="font-size: 0.75rem; color: var(--text-muted);">
-                                    <%= new Date(todo.createdAt).toLocaleDateString() %>
-                                </span>
-                                <div style="display: flex; gap: 1rem; align-items: center;">
-                                    <a href="/update/<%= todo._id %>" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">Edit</a>
-                                    <form action="/delete/<%= todo._id %>" method="POST" onsubmit="return confirm('Delete this task?');" style="display: inline;">
-                                        <button type="submit" class="btn-delete">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
+                            <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 0.5rem;">
+                                Added on <%= new Date(todo.createdAt).toLocaleDateString() %>
+                            </span>
                         </div>
-                    <% }) %>
-                <% } else { %>
-                    <p style="text-align: center; grid-column: 1/-1; color: var(--text-muted); margin-top: 2rem;">
-                        No tasks found for "<%= username %>".
-                    </p>
-                <% } %>
-            </div>
-        <% } else { %>
-            <div style="text-align: center; padding: 4rem; background: var(--card-bg); border-radius: 1.5rem; border: 1px dashed var(--border);">
-                <p style="color: var(--text-muted); font-size: 1.1rem;">Please enter a username above to view your personalized dashboard.</p>
-            </div>
-        <% } %>
+                        <div class="todo-actions">
+                            <a href="/update/<%= todo._id %>" class="btn btn-edit">Edit</a>
+                            <form action="/delete/<%= todo._id %>" method="POST" onsubmit="return confirm('Delete this task?');">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div style="text-align: center; padding: 4rem; background: #fff; border: 2px dashed var(--border); border-radius: 0.75rem;">
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">You haven't added any tasks yet.</p>
+                    <a href="/add" class="btn btn-primary">Create Your First Task</a>
+                </div>
+            <% } %>
+        </div>
     </div>
 </body>
 </html>

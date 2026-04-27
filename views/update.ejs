@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Task | Todo App</title>
+    <title>Edit Task | Todo App</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <%- include('navbar') %>
-    <div class="container">
-        <h1>Edit Your Task</h1>
+    <div class="container" style="max-width: 500px;">
+        <h1>Edit Task</h1>
         <form class="todo-form" method="POST" action="/update/<%= todo._id %>">
-            <label style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.5rem; display: block;">Task Title</label>
-            <input type="text" name="title" value="<%= todo.title %>" required>
-            
-            <label style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.5rem; display: block;">Task Description</label>
-            <textarea name="description" required><%= todo.description %></textarea>
-            
-            <button type="submit">Save Changes</button>
-            <a href="/user-dashboard" style="display: block; text-align: center; margin-top: 1rem; color: var(--text-muted); text-decoration: none;">Cancel</a>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="title" value="<%= todo.title %>" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" rows="4" required><%= todo.description %></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Save Changes</button>
+            <a href="/user-dashboard" style="display: block; text-align: center; margin-top: 1rem; color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">Cancel</a>
         </form>
     </div>
 </body>

@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New  Task</title>
+    <title>Add Task | Todo App</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <%- include('navbar') %>
-    <h1>Add new task</h1>
-    <div class="container">
-        <form class="todo-form" method="post" autocomplete="off">
-            <input type="text" name="title" placeholder="Enter task title" required autocomplete="off"><br><br>
-            <input type="text" name="username" placeholder="Enter your username" required autocomplete="off"><br><br>
-            <textarea name="description" placeholder="Enter task description" autocomplete="off"></textarea><br><br>
-            <button type="submit">Add New Task</button>
+    <div class="container" style="max-width: 500px;">
+        <h1>Add New Task</h1>
+        <form class="todo-form" method="POST" action="/add" autocomplete="off">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="title" placeholder="What needs to be done?" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" placeholder="Add more details..." rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Create Task</button>
+            <a href="/user-dashboard" style="display: block; text-align: center; margin-top: 1rem; color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">Back to Dashboard</a>
         </form>
     </div>
 </body>
