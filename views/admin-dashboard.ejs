@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | All Tasks</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <%- include('navbar') %>
+    <div class="container">
+        <h1>All Tasks Dashboard</h1>
+        
+        <div class="todo-grid">
+            <% if (todos.length > 0) { %>
+                <% todos.forEach(todo => { %>
+                    <div class="todo-card">
+                        <span class="todo-user"><%= todo.username %></span>
+                        <h3 class="todo-title"><%= todo.title %></h3>
+                        <p class="todo-desc"><%= todo.description %></p>
+                        <div class="todo-footer">
+                            <a href="/update/<%= todo._id %>" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">Edit</a>
+                            <form action="/delete/<%= todo._id %>" method="POST" onsubmit="return confirm('Delete this task?');" style="display: inline;">
+                                <button type="submit" class="btn-delete">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p style="text-align: center; grid-column: 1/-1; color: var(--text-muted);">No tasks found in the system.</p>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,13 +1,14 @@
 <nav>
     <ul>
-        <li>
-            <a href="/">Task List</a>
-        </li>
-        <li>
-            <a href="/add">Add Task</a>
-        </li>
-         <li>
-            <a href="/update">Update Task</a>
-        </li>
+        <% if (user) { %>
+            <li><a href="/user-dashboard">My Dashboard</a></li>
+            <li><a href="/admin-dashboard">All Shared Tasks</a></li>
+            <li><a href="/add">Add Task</a></li>
+            <li><a href="/logout" style="color: #ef4444;">Logout (<%= user.username %>)</a></li>
+        <% } else { %>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/signup">Sign Up</a></li>
+            <li><a href="/admin-dashboard">Public Feed</a></li>
+        <% } %>
     </ul>
 </nav>

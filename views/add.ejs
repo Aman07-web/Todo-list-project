@@ -11,9 +11,10 @@
     <h1>Add new task</h1>
     <div class="container">
         <form class="todo-form" method="post" autocomplete="off">
-            <input type="text" placeholder="Enter your title" autocomplete="off"><br><br>
-            <textarea name="description" placeholder="Enter your description" autocomplete="off"></textarea><br><br>
-            <button>Add New Task</button>
+            <input type="text" name="title" placeholder="Enter task title" required autocomplete="off"><br><br>
+            <input type="text" name="username" placeholder="Enter your username" required autocomplete="off"><br><br>
+            <textarea name="description" placeholder="Enter task description" autocomplete="off"></textarea><br><br>
+            <button type="submit">Add New Task</button>
         </form>
     </div>
 </body>

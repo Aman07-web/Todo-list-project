@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard | My Tasks</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <%- include('navbar') %>
+    <div class="container">
+        <h1>User Dashboard</h1>
+
+        <form action="/user-dashboard" method="GET" class="search-form">
+            <input type="text" name="username" placeholder="Search by username..." required value="<%= username || '' %>">
+            <button type="submit">Search Tasks</button>
+        </form>
+
+        <% if (username) { %>
+            <div class="dashboard-header">
+                <h2 style="color: var(--primary);">Showing tasks for: <%= username %></h2>
+                <span class="todo-user" style="margin: 0;"><%= todos.length %> task(s) found</span>
+            </div>
+            
+            <div class="todo-grid">
+                <% if (todos.length > 0) { %>
+                    <% todos.forEach(todo => { %>
+                        <div class="todo-card">
+                            <h3 class="todo-title"><%= todo.title %></h3>
+                            <p class="todo-desc"><%= todo.description %></p>
+                            <div class="todo-footer">
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">
+                                    <%= new Date(todo.createdAt).toLocaleDateString() %>
+                                </span>
+                                <div style="display: flex; gap: 1rem; align-items: center;">
+                                    <a href="/update/<%= todo._id %>" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">Edit</a>
+                                    <form action="/delete/<%= todo._id %>" method="POST" onsubmit="return confirm('Delete this task?');" style="display: inline;">
+                                        <button type="submit" class="btn-delete">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p style="text-align: center; grid-column: 1/-1; color: var(--text-muted); margin-top: 2rem;">
+                        No tasks found for "<%= username %>".
+                    </p>
+                <% } %>
+            </div>
+        <% } else { %>
+            <div style="text-align: center; padding: 4rem; background: var(--card-bg); border-radius: 1.5rem; border: 1px dashed var(--border);">
+                <p style="color: var(--text-muted); font-size: 1.1rem;">Please enter a username above to view your personalized dashboard.</p>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>
